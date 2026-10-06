@@ -7,6 +7,17 @@ const num = n => n.toLocaleString('cs-CZ');
 const kc = n => num(n) + ' Kč';
 const ico = (id, cls = 'icon') => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
 const qs = new URLSearchParams(location.search);
+// Dvě verze předlohy (standardní / prémiová) – přepínač zachová stránku, filtry i kancelář
+const VERSION = 'standard';
+const VERSIONS = { standard: { label: 'Standardní', repo: 'nextreality-ds', port: 5194 }, premium: { label: 'Prémiová', repo: 'nextreality-premium', port: 5196 } };
+function versionUrl(v) {
+  const t = VERSIONS[v], file = location.pathname.split('/').pop() || 'index.html';
+  const base = location.hostname.endsWith('github.io') ? `${location.origin}/${t.repo}/` : `${location.protocol}//${location.hostname}:${t.port}/`;
+  return base + file + location.search + location.hash;
+}
+const versionSwitch = () => `<div class="review__ver" role="group" aria-label="Verze předlohy">${Object.entries(VERSIONS).map(([k, v]) => k === VERSION
+  ? `<span class="review__vbtn is-on" aria-current="true">${v.label}</span>`
+  : `<a class="review__vbtn" href="${versionUrl(k)}" data-version="${k}">${v.label}</a>`).join('')}</div>`;
 // skloňování: nab(1)='1 nabídka', nab(3)='3 nabídky', nab(5)='5 nabídek'; acc=true pro 4. pád (zobrazit 1 nabídku)
 const nab = (n, acc) => `${num(n)} ${n === 1 ? (acc ? 'nabídku' : 'nabídka') : n >= 2 && n <= 4 ? 'nabídky' : 'nabídek'}`;
 
@@ -138,6 +149,7 @@ function layout() {
     <label>Kancelář <select id="office">${OFFICE_KEYS.map(k => `<option value="${k}">${{ tgh: 'TGH', stars: 'Stars', test: 'Test přebarvení' }[k]}</option>`).join('')}</select></label>
     <label>Cookies <select id="cookie-state"><option value="">nerozhodnuto</option><option value="yes">povoleno</option><option value="no">odmítnuto</option></select></label>
     <label><input type="checkbox" id="grid-toggle"> Mřížka 12 sloupců</label>
+    ${versionSwitch()}
     <div class="review__links">
       <a class="review__btn review__btn--main" data-href="styleguide.html">Knihovna komponent</a>
       <a class="review__btn" data-href="predani.html">Pravidla pro vývoj</a>
@@ -256,6 +268,7 @@ function start() {
   $('#cookie-state').value = consent.get();
   $('#cookie-state').addEventListener('change', e => consent.set(e.target.value));
   $('#grid-toggle').addEventListener('change', e => gridOverlay(e.target.checked));
+  document.addEventListener('click', e => { const v = e.target.closest('[data-version]'); if (v) { e.preventDefault(); location.href = versionUrl(v.dataset.version); } });
   if (qs.has('grid')) { $('#grid-toggle').checked = true; gridOverlay(true); }
   $$('#cookies [data-c]').forEach(b => b.addEventListener('click', () => consent.set(b.dataset.c === 'set' ? 'no' : b.dataset.c)));
   $('#cookie-reopen')?.addEventListener('click', e => { e.preventDefault(); $('#cookies').hidden = false; });
