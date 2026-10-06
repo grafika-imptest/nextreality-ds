@@ -3,7 +3,14 @@
 Předloha pro vývoj, ne produkční kód. Vývoj ji přepíše do CMS (RealEstateOffice) podle sebe.
 Zdroj pravdy = `site/tokens.css`. Figma se nepoužívá.
 
-Náhled: `node dev.js` → http://localhost:5194/prehled.html (rozcestník předlohy)
+**Online:** https://grafika-imptest.github.io/nextreality-ds/prehled.html (veřejné, GitHub Pages z větve `gh-pages`)
+
+Aktualizace webu po změně v `site/`:
+```bash
+git subtree split --prefix site -b gh-pages && git push -f origin gh-pages
+```
+
+Lokálně: `node dev.js` → http://localhost:5194/prehled.html (rozcestník předlohy)
 - `styleguide.html` knihovna komponent se všemi stavy · `predani.html` pravidla pro vývoj + export tokens.json · `porovnani.html` automatické porovnání barevných variant
 - `index.html` homepage · `vypis.html` výpis (seznam / mapa) · `detail.html` detail nemovitosti
 - `prodat.html` chci prodat + průvodce odhadem · `makleri.html` · `makler.html?slug=zdenek-kubat` · `projekty.html` · `projekt.html` · `kontakty.html` · `404.html` (`?variant=sold` = nemovitost už není v nabídce; neexistující adresa vrací 404.html)
