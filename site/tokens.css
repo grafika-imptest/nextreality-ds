@@ -1,0 +1,130 @@
+/* ==========================================================================
+   NEXT Reality – design tokeny (předloha pro vývoj)
+   Pravidlo: základní jednotka je pevných 16 px a NEMĚNÍ se s šířkou okna.
+   Velikosti se mění jen na breakpointech 768 a 1280 px, nikdy plynule.
+   Kancelář mění jen proměnné v bloku [data-office]. Layout se nemění nikdy.
+   ========================================================================== */
+
+:root {
+  /* --- Brand NEXT (shodné pro všechny kanceláře – ověřeno na TGH, Stars, Dynamic 10/2026) --- */
+  --brand-green: #85b929;        /* originál – jen dekor, ikony, plochy; s bílým textem NEsplňuje WCAG (2,3:1) */
+  --brand-blue: #3187aa;         /* originál – jen dekor; s bílým textem 4,0:1 = pod AA */
+  --brand-navy: #103b5b;
+
+  /* --- Akcenty pro kancelář (přepisují se v [data-office]) --- */
+  --accent: #4e7d12;             /* primární tlačítko, bílý text 4,9:1 ✓ AA */
+  --accent-hover: #3f6610;
+  --accent-soft: #f1f7e6;        /* podklad štítků, zvýraznění */
+  --accent-deco: var(--brand-green);
+  --accent-2: #22729a;           /* doplňková – odkazy, sekundární akce, bílý text 5,3:1 ✓ */
+  --accent-2-hover: #1b5d7e;
+  --accent-2-soft: #eaf3f7;
+
+  /* --- Neutrály --- */
+  --ink: #232a31;                /* nadpisy */
+  --text: #3c3c3b;               /* běžný text (z TGH), 11,0:1 */
+  --text-muted: #5f6368;         /* popisky, 6,1:1 */
+  --line: #e1e4e8;
+  --line-strong: #c4c9cf;
+  --surface: #ffffff;
+  --surface-2: #f6f7f8;
+  --surface-dark: var(--brand-navy);
+
+  /* --- Stavy nabídky --- */
+  --st-free: #256b29;   --st-free-bg: #e8f3e9;
+  --st-reserved: #8a5a00; --st-reserved-bg: #fff3d6;
+  --st-sold: #5f6368;   --st-sold-bg: #eceef0;
+  --st-top: #ffffff;    --st-top-bg: var(--brand-navy);
+  --st-last: #9b2c2c;   --st-last-bg: #fdecec;
+  --danger: #b3261e;
+  --focus: #1a73e8;
+
+  /* --- Typografie --- */
+  --font: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* mobil (<768) – výchozí, mobile first */
+  --fs-hero: 32px;  --lh-hero: 38px;
+  --fs-h1: 28px;    --lh-h1: 34px;
+  --fs-h2: 24px;    --lh-h2: 30px;
+  --fs-h3: 20px;    --lh-h3: 26px;
+  --fs-card: 17px;  --lh-card: 24px;
+  --fs-lead: 17px;  --lh-lead: 26px;
+  --fs-body: 16px;  --lh-body: 25px;
+  --fs-small: 14px; --lh-small: 20px;
+  --fs-label: 12px; --lh-label: 16px; --ls-label: .06em;
+  --fs-btn: 15px;
+
+  /* --- Odsazení: výhradně tato škála (20 a 40 doplněny kvůli okrajům stránky) --- */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px; --s-5: 20px;
+  --s-6: 24px; --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px; --s-24: 96px;
+
+  /* --- Layout --- */
+  --content-max: 1280px;
+  --text-max: 720px;
+  --gutter: 20px;
+  --gap: 16px;
+  --section-y: 56px;
+  --header-h: 64px;
+
+  /* --- Komponenty --- */
+  --btn-h: 48px;
+  --input-h: 48px;
+  --r-btn: 8px;
+  --r-card: 12px;
+  --r-input: 8px;
+  --r-pill: 999px;
+  --icon: 20px;
+  --icon-lg: 24px;
+
+  /* --- Stíny --- */
+  --sh-1: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .08);
+  --sh-2: 0 4px 12px rgba(16, 24, 40, .08), 0 2px 4px rgba(16, 24, 40, .04);
+  --sh-3: 0 16px 40px rgba(16, 24, 40, .16);
+
+  --ease: cubic-bezier(.2, .7, .3, 1);
+}
+
+/* tablet 768–1279 – v zadání chyběl, doplněno */
+@media (min-width: 768px) {
+  :root {
+    --fs-hero: 40px;  --lh-hero: 48px;
+    --fs-h1: 34px;    --lh-h1: 42px;
+    --fs-h2: 28px;    --lh-h2: 36px;
+    --fs-h3: 22px;    --lh-h3: 30px;
+    --fs-card: 18px;  --lh-card: 26px;
+    --fs-lead: 18px;  --lh-lead: 28px;
+    --fs-body: 16px;  --lh-body: 26px;
+    --gutter: 32px;
+    --gap: 24px;
+    --section-y: 72px;
+    --header-h: 72px;
+    --btn-h: 44px;
+    --input-h: 44px;
+  }
+}
+
+/* desktop ≥1280 */
+@media (min-width: 1280px) {
+  :root {
+    --fs-hero: 48px;  --lh-hero: 56px;   /* strop – H1 nikdy nad 48 px */
+    --fs-h1: 40px;    --lh-h1: 48px;
+    --fs-h2: 32px;    --lh-h2: 40px;
+    --fs-h3: 24px;    --lh-h3: 32px;
+    --gutter: 40px;
+    --section-y: 96px;
+  }
+}
+
+/* ==========================================================================
+   Kanceláře – mění se JEN tyto hodnoty. Logo, fotka a kontakty jdou z CRM.
+   Všechny současné kanceláře mají stejné brand barvy NEXT; varianta "test"
+   slouží jen k důkazu, že přebarvení nesahá do layoutu.
+   ========================================================================== */
+[data-office="tgh"],
+[data-office="stars"] { /* brand NEXT – výchozí hodnoty z :root */ }
+
+[data-office="test"] {
+  --accent: #8c2f39;  --accent-hover: #72252e;  --accent-soft: #f8ecee;  --accent-deco: #c2505c;
+  --accent-2: #2f4b7c; --accent-2-hover: #243b62; --accent-2-soft: #edf1f8;
+  --surface-dark: #2b2230;
+}

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="cs" data-office="tgh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reality a nemovitosti v Praze a okolí | NEXT Reality TGH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body data-page="home">
+
+<div id="site-header"></div>
+
+<main>
+  <!-- HERO: nabídka dřív než sebeprezentace – vyhledávání je součástí hero -->
+  <section class="hero">
+    <div class="hero__media"><img data-bind="hero" alt="" fetchpriority="high"></div>
+    <div class="container hero__in">
+      <div>
+        <h1 class="t-hero">Najděte svůj domov <span data-bind="region"></span></h1>
+        <p class="hero__lead t-lead"><b data-bind="total"></b> nemovitostí v aktuální nabídce. Byty, domy, pozemky i komerční prostory.</p>
+      </div>
+
+      <form class="search" id="search" role="search">
+        <div class="search__row">
+          <div class="field">
+            <span class="field__label" id="lbl-deal">Typ nabídky</span>
+            <div class="seg" role="group" aria-labelledby="lbl-deal">
+              <button type="button" aria-pressed="true" data-deal="prodej">Prodej</button>
+              <button type="button" aria-pressed="false" data-deal="pronajem">Pronájem</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-type">Typ nemovitosti</label>
+            <select class="select" id="f-type">
+              <option value="">Vše</option>
+              <option value="byt">Byty</option>
+              <option value="dum">Domy</option>
+              <option value="komercni">Komerční</option>
+              <option value="pozemek">Pozemky</option>
+              <option value="ostatni">Ostatní</option>
+            </select>
+          </div>
+          <div class="field suggest" id="suggest">
+            <label for="f-loc">Lokalita</label>
+            <div class="input-icon">
+              <svg class="icon"><use href="#i-pin"/></svg>
+              <input class="input" id="f-loc" placeholder="Město, čtvrť, ulice nebo projekt" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="suggest-list">
+            </div>
+            <ul class="suggest__list" id="suggest-list" role="listbox"></ul>
+          </div>
+        </div>
+        <div class="search__foot">
+          <div class="field" id="disp-field">
+            <span class="field__label" id="lbl-disp">Dispozice</span>
+            <div class="chips" role="group" aria-labelledby="lbl-disp">
+              <button type="button" class="chip" aria-pressed="false">1+kk</button>
+              <button type="button" class="chip" aria-pressed="false">1+1</button>
+              <button type="button" class="chip" aria-pressed="false">2+kk</button>
+              <button type="button" class="chip" aria-pressed="false">2+1</button>
+              <button type="button" class="chip" aria-pressed="false">3+kk</button>
+              <button type="button" class="chip" aria-pressed="false">3+1</button>
+              <button type="button" class="chip" aria-pressed="false">4+ a větší</button>
+            </div>
+          </div>
+          <button class="btn btn--primary" id="search-btn" type="submit"><svg class="icon"><use href="#i-search"/></svg><span>Zobrazit <b id="live-count"></b></span></button>
+        </div>
+      </form>
+
+      <p class="hero__seller">Chcete prodat? <a data-href="prodat.html#odhad">Zjistěte cenu své nemovitosti online →</a></p>
+    </div>
+  </section>
+
+  <!-- NABÍDKA -->
+  <section class="section" id="nabidka">
+    <div class="container">
+      <nav class="cats" aria-label="Kategorie" id="cats"></nav>
+      <div class="section-head">
+        <div>
+          <span class="t-label eyebrow">Aktuální nabídka</span>
+          <h2 class="t-h2">Nejnovější nemovitosti</h2>
+        </div>
+        <a class="btn btn--secondary" data-all href="vypis.html">Zobrazit všech <span data-bind="total"></span> nabídek <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="grid-cards" id="cards"></div>
+
+      <div class="watchdog">
+        <span class="watchdog__ico"><svg class="icon icon--lg"><use href="#i-bell"/></svg></span>
+        <div>
+          <h3 class="t-h3" style="font-size:var(--fs-card);line-height:var(--lh-card)">Hlídací pes nových nabídek</h3>
+          <p>Pošleme vám e-mail, jakmile se objeví nemovitost podle vašeho hledání.</p>
+        </div>
+        <form onsubmit="event.preventDefault()">
+          <label class="sr-only" for="wd-mail">E-mail</label>
+          <input class="input" id="wd-mail" type="email" placeholder="váš@e-mail.cz">
+          <button class="btn btn--alt">Hlídat nabídky</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHCI PRODAT – hlavní CTA pro prodávající -->
+  <section class="section section--dark" id="prodat">
+    <div class="container sell">
+      <div>
+        <span class="t-label eyebrow">Chci prodat</span>
+        <h2 class="t-h2">Kolik je vaše nemovitost dnes skutečně&nbsp;za&nbsp;to?</h2>
+        <p class="t-lead" style="margin-top:var(--s-4);color:rgba(255,255,255,.85);max-width:52ch">Zadejte adresu a získejte orientační odhad ceny. Zdarma a nezávazně.</p>
+        <ul class="sell__list">
+          <li><svg class="icon"><use href="#i-check"/></svg><span>Inzerce nemovitostí až na 100 serverech</span></li>
+          <li><svg class="icon"><use href="#i-check"/></svg><span>Komplexní právní servis včetně advokátní úschovy</span></li>
+          <li><svg class="icon"><use href="#i-check"/></svg><span>Profesionální fotografie, video a 3D prohlídky</span></li>
+        </ul>
+      </div>
+      <form class="estimate" id="estimate">
+        <h3 class="t-h3">Online odhad ceny</h3>
+        <div class="field">
+          <label for="e-type">Co prodáváte?</label>
+          <select class="select" id="e-type"><option>Byt</option><option>Dům</option><option>Pozemek</option><option>Komerční prostor</option></select>
+        </div>
+        <div class="field">
+          <label for="e-addr">Adresa nemovitosti</label>
+          <div class="input-icon"><svg class="icon"><use href="#i-pin"/></svg><input class="input" id="e-addr" placeholder="Ulice a číslo, obec"></div>
+        </div>
+        <button class="btn btn--primary btn--block">Zjistit cenu zdarma <svg class="icon"><use href="#i-arrow"/></svg></button>
+        <p class="estimate__note"><svg class="icon"><use href="#i-phone"/></svg> Raději osobně? <a href="#kontakt">Ozvěte se nám</a></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- MAKLÉŘI -->
+  <section class="section" id="makleri">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="t-label eyebrow">Makléři</span>
+          <h2 class="t-h2">Kdo se postará o váš obchod</h2>
+        </div>
+        <a class="btn btn--secondary" data-href="makleri.html">Všichni makléři <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="grid-agents" id="agents"></div>
+    </div>
+  </section>
+
+  <!-- REFERENCE -->
+  <section class="section section--tint" id="reference">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="t-label eyebrow">Reference</span>
+          <h2 class="t-h2">Co o nás říkají klienti</h2>
+        </div>
+        <div class="ratings" id="ratings"></div>
+      </div>
+      <div class="grid-refs" id="refs"></div>
+    </div>
+  </section>
+
+  <!-- DEVELOPERSKÉ PROJEKTY -->
+  <section class="section" id="projekty">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="t-label eyebrow">Developerské projekty</span>
+          <h2 class="t-h2">Nové bydlení a investice</h2>
+        </div>
+        <a class="btn btn--secondary" data-href="projekty.html">Všechny projekty <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="grid-projects" id="projects"></div>
+    </div>
+  </section>
+
+  <!-- REALIZOVÁNO -->
+  <section class="section section--dark" id="realizovano" style="padding-block:var(--s-12)">
+    <div class="container" style="display:grid;gap:var(--s-8)">
+      <div class="section-head" style="margin:0">
+        <div>
+          <span class="t-label eyebrow">Realizováno</span>
+          <h2 class="t-h2">Nemovitosti, které jsme už prodali</h2>
+        </div>
+        <a class="btn btn--secondary btn--on-dark" data-href="vypis.html" data-q="&status=sold">Prohlédnout realizace <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="sold-strip" id="stats"></div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section class="section" id="kontakt">
+    <div class="container contact">
+      <div>
+        <span class="t-label eyebrow">Kontakt</span>
+        <h2 class="t-h2">Jsme tu pro vás</h2>
+        <p style="margin-top:var(--s-3);color:var(--text-muted)">Osobně s vámi projdeme každý detail. Nejpozději do 24 hodin se ozveme nazpátek.</p>
+        <div class="contact__card" id="office-contact"></div>
+      </div>
+      <form class="form" onsubmit="event.preventDefault()">
+        <div class="form__2">
+          <div class="field"><label for="c-name">Jméno a příjmení *</label><input class="input" id="c-name" autocomplete="name"></div>
+          <div class="field"><label for="c-tel">Telefon *</label><input class="input is-error" id="c-tel" type="tel" autocomplete="tel" value="603 41" aria-describedby="c-tel-err"><span class="field__error" id="c-tel-err">Zadejte telefon ve tvaru 603 418 108</span></div>
+        </div>
+        <div class="field"><label for="c-mail">E-mail *</label><input class="input" id="c-mail" type="email" autocomplete="email"></div>
+        <div class="field"><label for="c-msg">Zajímá vás něco konkrétního?</label><textarea class="input" id="c-msg"></textarea></div>
+        <label class="check"><input type="checkbox"> <span>Souhlasím se zpracováním osobních údajů. <a href="#">Jak s nimi nakládáme</a></span></label>
+        <div><button class="btn btn--primary">Odeslat zprávu</button></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+
+<script src="data.js"></script>
+<script src="data/tgh-listings.js"></script>
+<script src="data/stars-listings.js"></script>
+<script src="core.js"></script>
+<script src="home.js"></script>
+</body>
+</html>
