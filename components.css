@@ -321,6 +321,10 @@ textarea.input { height: auto; min-height: 120px; padding-block: var(--s-3); res
 .review__btn:hover { background: #333; }
 .review__btn--main { background: #7bd88f; color: #111; }
 .review__btn--main:hover { background: #95e3a6; }
+.review__ver { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 2px; background: #222; border-radius: 8px; }
+.review__vbtn { display: block; padding: 7px 6px; border-radius: 6px; text-align: center; color: #ccc; text-decoration: none; font-weight: 600; }
+.review__vbtn:hover { color: #fff; background: #333; }
+.review__vbtn.is-on { background: #eee; color: #111; }
 
 @media (min-width: 1440px) { .nav__opt { display: inline; } }
 
