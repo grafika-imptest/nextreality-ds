@@ -1,4 +1,6 @@
 // Homepage – vykreslení z dat kanceláře, našeptávač, živý počet.
+const HERO = { tgh: { src: 'assets/hero-praha-2400.jpg', set: 'assets/hero-praha-1280.jpg 1280w, assets/hero-praha-2400.jpg 2400w' } };
+HERO.test = HERO.tgh;
 const CATS = [['byt', 'Byty'], ['dum', 'Domy'], ['pozemek', 'Pozemky'], ['komercni', 'Komerční'], ['ostatni', 'Ostatní']];
 
 window.PAGE = {
@@ -6,7 +8,9 @@ window.PAGE = {
   render(key) {
     const o = OFFICES[key];
     document.title = `Reality a nemovitosti ${o.region} | ${o.name}`;
-    $$('[data-bind="hero"]').forEach(i => (i.src = o.hero));
+    // TGH: původní hero z webu kanceláře měl nízkou kvalitu → stock Praha při západu slunce (Magnific, premium licence, autor tan4ikk)
+    const hero = HERO[key];
+    $$('[data-bind="hero"]').forEach(i => { i.srcset = hero?.set || ''; i.sizes = '100vw'; i.src = hero?.src || o.hero; });
     $$('[data-bind="region"]').forEach(e => (e.textContent = o.region));
     $$('[data-bind="total"]').forEach(e => (e.textContent = o.total));
 
