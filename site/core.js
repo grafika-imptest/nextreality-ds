@@ -66,7 +66,7 @@ const ICONS = {
   calc: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h1M12 11h1M16 11h0M8 15h1M12 15h1M16 15v3"/>',
   share: '<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"/>',
   info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h0"/>',
-  compare: '<path d="M8 3v18M16 3v18M3 8h5M16 16h5"/>',
+  compare: '<path d="M12 4v16M8 20h8M4.5 7h15"/><circle cx="12" cy="4.5" r="1"/><path d="M6.5 7 3.5 14M6.5 7l3 7M17.5 7l-3 7M17.5 7l3 7"/><path d="M3 14h7a3.5 3.5 0 0 1-7 0zM14 14h7a3.5 3.5 0 0 1-7 0z"/>', /* váhy */
   expand: '<path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/>',
   floor: '<rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 12h7v9M10 3v5M14 12h7M14 12v4"/>',
   shield: '<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/>',
