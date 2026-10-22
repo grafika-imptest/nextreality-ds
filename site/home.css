@@ -1,0 +1,117 @@
+/* ==========================================================================
+   Homepage kanceláře – náběr zakázek (standardní verze).
+   Doplňuje components.css, hodnoty výhradně z tokens.css. Jen pro index.html.
+   ========================================================================== */
+
+/* --- Hero: kancelář + odhad ceny ------------------------------------------ */
+.hp-hero__in { padding-block: var(--s-10) var(--s-10); }
+.hp-hero__copy { display: grid; gap: var(--s-4); justify-items: start; }
+.hp-hero__eyebrow { color: var(--accent-deco); }
+.hp-hero .t-hero { max-width: 22ch; }
+.hp-hero .hero__lead { margin-top: 0; max-width: 52ch; }
+.hp-hero__cta { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-2); }
+.hp-btn-lg { min-height: 52px; padding-inline: var(--s-8); font-size: 17px; }
+.hp-hero__trust { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); margin-top: var(--s-2); }
+.hp-faces { display: inline-flex; align-items: center; gap: var(--s-3); color: #fff; font-weight: 600; font-size: var(--fs-small); text-decoration: none; }
+.hp-faces:hover span:last-child { text-decoration: underline; }
+.hp-faces__img { display: inline-flex; }
+.hp-faces__img img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; object-position: top; border: 2px solid #fff; background: var(--surface-2); }
+.hp-faces__img img + img { margin-left: -12px; }
+.hp-hero__badges { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.hp-hero .hp-rate { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); color: #fff; }
+.hp-hero .hp-rate b, .hp-hero .hp-rate small { color: #fff; }
+@media (min-width: 768px) { .hp-hero__in { padding-block: var(--s-16) var(--s-12); } }
+@media (min-width: 1280px) { .hp-hero__in { padding-block: var(--s-16); } }
+@media (max-width: 599px) {
+  .hp-hero__in { padding-block: var(--s-8); }
+  .hp-hero__cta { width: 100%; }
+  .hp-hero__cta .btn { flex: 1 1 100%; }
+}
+
+/* --- Odznak hodnocení se značkou zdroje -------------------------------------- */
+.hp-rate { display: inline-flex; align-items: center; gap: var(--s-2); padding: 6px var(--s-3) 6px 6px; border-radius: var(--r-pill); background: var(--surface); border: 1px solid var(--line); }
+.hp-rate b { font-size: 17px; line-height: 1; color: var(--ink); }
+.hp-rate small { font-size: var(--fs-small); color: var(--text-muted); }
+.hp-rate .stars .icon { width: 14px; height: 14px; }
+.hp-rate__mark { display: grid; place-items: center; height: 28px; min-width: 28px; border-radius: var(--r-pill); background: #fff; }
+.hp-rate__mark svg { width: 18px; height: 18px; }
+.hp-rate--text { padding-left: 4px; }
+.hp-mark-firmy { padding-inline: var(--s-2); font-size: 13px; line-height: 28px; font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
+.hp-rate--plain { padding-left: var(--s-3); min-height: 42px; }
+.hp-ratings { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+
+/* --- Štíhlá lišta hledání (sekundární) ------------------------------------- */
+.hp-find { background: var(--surface-2); border-bottom: 1px solid var(--line); padding-block: var(--s-4); }
+.hp-find__form { display: grid; gap: var(--s-3); align-items: center; }
+.hp-find__label { display: flex; gap: var(--s-2); align-items: center; font-size: var(--fs-small); color: var(--text-muted); }
+.hp-find__label b { color: var(--ink); }
+.hp-find__label .icon { color: var(--text-muted); }
+.hp-find .seg { background: var(--surface); }
+.hp-find .seg button[aria-pressed="true"] { background: var(--surface-2); }
+.hp-find .input, .hp-find .select { height: 44px; }
+@media (min-width: 768px) {
+  .hp-find__form { grid-template-columns: 180px 1fr auto; }
+  .hp-find__label { grid-column: 1 / -1; }
+  .hp-find .seg { display: none; } /* tablet: prodej / pronájem až ve výpisu, aby lokalita měla místo */
+}
+@media (min-width: 1024px) {
+  .hp-find__form { grid-template-columns: auto 180px 1fr auto; }
+  .hp-find .seg { display: inline-flex; }
+}
+@media (min-width: 1280px) {
+  .hp-find__form { grid-template-columns: auto auto minmax(160px, 200px) minmax(220px, 1fr) auto; }
+  .hp-find__label { grid-column: auto; }
+}
+/* mobil: jen lokalita + tlačítko; typ a prodej / pronájem jsou ve filtrech výpisu */
+@media (max-width: 767px) {
+  .hp-find .seg, .hp-find .field:not(.suggest) { display: none; }
+  .hp-find .btn { width: 100%; }
+}
+
+/* --- Proč s námi ------------------------------------------------------------ */
+.hp-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-4); padding-block: var(--s-6); border-block: 1px solid var(--line); }
+@media (min-width: 768px) { .hp-stats { grid-template-columns: repeat(4, 1fr); } }
+.hp-stat b { display: block; font-size: var(--fs-h2); line-height: var(--lh-h2); color: var(--accent); font-weight: 700; }
+.hp-stat span { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--text-muted); }
+.hp-values { list-style: none; padding: 0; margin: var(--s-8) 0 0; display: grid; gap: var(--s-6); }
+@media (min-width: 768px) { .hp-values { grid-template-columns: repeat(3, 1fr); } }
+.hp-values li { display: flex; gap: var(--s-4); align-items: start; }
+.hp-values__ico { display: grid; place-items: center; width: 48px; height: 48px; flex: none; border-radius: 50%; background: var(--accent-soft); color: var(--accent); }
+.hp-values h3 { font-size: var(--fs-card); line-height: var(--lh-card); color: var(--ink); }
+.hp-values p { margin-top: var(--s-1); font-size: var(--fs-small); line-height: var(--lh-small); color: var(--text-muted); }
+
+/* --- Jak prodáváme ------------------------------------------------------------ */
+.hp-sell { align-items: start; }
+.hp-sell__lead { margin-top: var(--s-4); color: rgba(255,255,255,.85); max-width: 52ch; }
+.hp-steps { list-style: none; padding: 0; margin: var(--s-8) 0 0; display: grid; gap: var(--s-6); counter-reset: st; }
+@media (min-width: 768px) { .hp-steps { grid-template-columns: repeat(2, 1fr); } }
+.hp-steps li { counter-increment: st; display: grid; grid-template-columns: 36px 1fr; column-gap: var(--s-4); row-gap: var(--s-1); }
+.hp-steps li::before { content: counter(st); grid-row: span 2; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--accent-deco); color: var(--accent-deco); font-weight: 700; }
+.hp-steps h3 { font-size: var(--fs-card); line-height: var(--lh-card); color: #fff; }
+.hp-steps p { font-size: var(--fs-small); line-height: var(--lh-small); color: rgba(255,255,255,.8); }
+.hp-sell__more { display: inline-flex; align-items: center; gap: var(--s-2); margin-top: var(--s-8); color: #fff; font-weight: 600; }
+.hp-estimate__lead { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--text-muted); margin-top: calc(-1 * var(--s-2)); }
+
+/* --- Reference: 3 vedle sebe, rozbalení na místě --------------------------- */
+.hp-ref { margin: 0; gap: var(--s-3); }
+.hp-ref__q { color: var(--accent-deco); }
+.hp-ref.is-open blockquote { display: block; -webkit-line-clamp: unset; overflow: visible; }
+.hp-ref__more { justify-self: start; align-self: start; padding: 0; border: 0; background: none; color: var(--accent-2); font-weight: 600; font-size: var(--fs-small); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.hp-ref__more:hover { color: var(--accent-2-hover); }
+.hp-ref figcaption { margin-top: auto; padding-top: var(--s-2); display: flex; align-items: center; gap: var(--s-3); font-size: var(--fs-small); }
+.hp-ref figcaption b { display: block; color: var(--ink); }
+.hp-ref figcaption > span > span { color: var(--text-muted); }
+.hp-ref__city { font-weight: 500; color: var(--text-muted); }
+@media (min-width: 768px) and (max-width: 1023px) { .hp-ref { padding: var(--s-4); } }
+
+/* --- Aktuální nabídka + projekty jako odkaz --------------------------------- */
+.hp-projects { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); margin-top: var(--s-8); padding: var(--s-4) var(--s-6); border-radius: var(--r-card); background: var(--surface); border: 1px solid var(--line); font-size: var(--fs-small); color: var(--text-muted); }
+.hp-projects > .icon { color: var(--accent); }
+.hp-projects b { color: var(--ink); }
+.hp-projects > span { flex: 1 1 260px; }
+.hp-projects__all { display: inline-flex; align-items: center; gap: var(--s-1); font-weight: 600; white-space: nowrap; }
+.hp-projects__all .icon { width: 16px; height: 16px; }
+
+/* --- Kontakt ------------------------------------------------------------------- */
+#kontakt textarea { font: inherit; } /* components.css dědí font jen u button/input/select */
+.hp-contact__lead { margin-top: var(--s-3); color: var(--text-muted); max-width: 46ch; }

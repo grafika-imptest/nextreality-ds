@@ -28,6 +28,7 @@ Obnovení dat: `node tools/fetch-listings.mjs` (nabídky TGH a Stars z endpointu
 | `site/tokens.css` | barvy, typografie (mobil / tablet / desktop), odsazení, rádiusy, stíny, proměnné kanceláří |
 | `site/components.css` | základní komponenty (tlačítka, pole, karta nemovitosti, hlavička, patička, cookies…) |
 | `site/pages.css` | komponenty výpisu a detailu (filtry, mapa, stránkování, galerie, PENB, lepící lišta…) |
+| `site/home.css` | jen homepage: hero kanceláře, štíhlá lišta hledání, čísla, postup prodeje, reference s rozbalením, odznaky hodnocení |
 | `site/core.js` | společné: ikonová sada, hlavička/patička, cookies, karta nemovitosti, přepínač kanceláře, kontrola kritérií |
 | `site/home.js` · `listing.js` · `detail.js` · `prodat.js` | logika stránek (menší stránky mají skript přímo v HTML) |
 | `site/data.js` | obsah homepage kanceláří (makléři, reference, projekty) |
@@ -50,7 +51,7 @@ Obnovení dat: `node tools/fetch-listings.mjs` (nabídky TGH a Stars z endpointu
 | TGH, Stars i Dynamic mají stále root 8,4 px při 1440 px (H1 37 / 50 / 50 px) | problém ze zadání trvá |
 | **Všechny tři kanceláře mají stejné barvy** (zelená #85B929, modrá #3187AA) | „přebarvení na kancelář“ v praxi = logo + fotka + kontakty. Proměnné barev nechávám, varianta `test` dokazuje, že fungují |
 | **Brand zelená s bílým textem má kontrast 2,3:1, modrá 4,1:1** – obojí pod WCAG AA | pro tlačítka ztmaveno na #4E7D12 (4,9:1) a #22729A (5,3:1); originály jen pro dekor. **Nutné odsouhlasit s majitelem značky** |
-| TGH homepage nemá výpis nemovitostí vůbec | v novém systému nabídka hned pod hero |
+| TGH homepage nemá výpis nemovitostí vůbec | nabídka je na homepage jen jako ukázka (4 karty) níž na stránce – viz Homepage níže |
 | Výpis TGH na 1440×900: nad ohybem jen filtr, žádná nemovitost | vyřešeno – viz kritéria níže |
 | Tlačítka všude VERZÁLKAMI | zadání: verzálky jen na štítky → tlačítka normálně |
 | Garáž Meziboří: stav v CRM „Volný“, ve fotce vpálené „REZERVACE“ | datová kvalita – předat kanceláři |
@@ -68,6 +69,13 @@ Obnovení dat: `node tools/fetch-listings.mjs` (nabídky TGH a Stars z endpointu
 | **Blog TGH**: 4 články, žádný nemá fotku, všechny s datem 13. 2. 2025, „nejaktuálnější“ článek popisuje trendy roku 2023 | obsahově zastaralé; karta článku má brandový prázdný stav místo šedého „noimage“ |
 | Štítek stavu „Volný“ měl kontrast 4,49 : 1 (pod AA pro 12 px) | zjištěno živým měřením v knihovně, ztmaveno na #256B29 (5,7 : 1) |
 | CRM posílá „Plocha pozemku: 528“ bez jednotky; u pozemků názvy typu „Perštejn,Chomutov,Ústecký kraj“ bez mezer | šablona musí jednotky doplňovat sama; nekonzistence názvů předat CRM |
+
+## Homepage = web kanceláře, ne inzertní server (zpětná vazba klienta 10/2026)
+Web kanceláře primárně prezentuje kancelář, makléře a jejich práci a slouží k **náběru nových zakázek**. Kdo chce koupit, jde na inzertní server nebo centrální web sítě – proto nabídka nemovitostí na homepage není v popředí. S tímto principem se pracuje od začátku u každé kanceláře.
+- **Pořadí:** hero (kancelář + „Odhad ceny zdarma“ + „Domluvit schůzku“, tváře makléřů, hodnocení) → štíhlá lišta „Hledáte bydlení?“ → proč s námi (jen reálná čísla z dat) → jak prodáváme (4 kroky + krátký vstup do průvodce odhadem) → makléři s telefonem a e-mailem → reference → realizováno (jen když kancelář realizace má; TGH 0 → sekce skrytá) → aktuální nabídka jako „Takhle prezentujeme nemovitosti našich klientů“ (max. 4 karty + odkaz) → developerské projekty jen jako řádek s odkazy → kontakt / schůzka.
+- **Hledání** na homepage: jen prodej/pronájem, typ a lokalita (mobil jen lokalita, tablet bez prodej/pronájem); dispozice a další filtry jsou až ve výpisu. Kategorie a hlídací pes z homepage odešly.
+- **Reference:** 3 vedle sebe (od 768 px), podpis „Jméno · Město“. Text nad 5 řádků se sbalí a tlačítko „Číst celou referenci“ (aria-expanded) ho rozbalí na místě. **CMS musí u reference posílat město** (pole `c` / `city`) – dnešní data ho nemají, šablona ho bez něj vynechá.
+- **Hodnocení:** odznak se značkou zdroje (Google „G“ jako inline SVG, Firmy.cz jako textový odznak, obecný zdroj jen hvězda). Produkce použije oficiální podklady podle pravidel značek.
 
 ## Rozhodnutí v předloze (odchylky od zadání)
 1. **Odsazení**: do škály doplněny 20 a 40 px (okraje stránky 20 / 32 / 40 ze zadání ve škále nebyly).
@@ -93,7 +101,7 @@ Obnovení dat: `node tools/fetch-listings.mjs` (nabídky TGH a Stars z endpointu
 18. **404 ve dvou variantách**: obecná (vyhledávání + rychlé odkazy + aktuální nabídky) a „nemovitost už není v nabídce“ pro staré URL inzerátů – místo slepé 404 nabídne podobné nemovitosti a hlídacího psa.
 
 ## Fáze 4 – ověřeno
-- **Klikací prototyp**: homepage (Byty, Praha, 2+kk) → výpis se stejnými filtry (20 nabídek) → karta → detail → „Mám zájem“ s předvyplněnou zprávou → potvrzení. Funguje i na mobilu.
+- **Klikací prototyp**: homepage (Byty, Praha; od 10/2026 bez dispozice na homepage) → výpis se stejnými filtry (20 nabídek) → karta → detail → „Mám zájem“ s předvyplněnou zprávou → potvrzení. Funguje i na mobilu.
 - **Barevné varianty** (`porovnani.html`): TGH ↔ Test přebarvení – homepage 8 sekcí a výpis 5 sekcí, layout shodný na 1440 i 375 px (tolerance 2 px).
 - **Kontrast** všech tokenů měřen živě v knihovně (sekce Barvy).
 - **Export**: tokens.json generovaný z tokens.css (základ, přepisy pro 768 a 1280 px, kanceláře), SVG sprite i jednotlivé ikony ke stažení.
@@ -104,7 +112,8 @@ Obnovení dat: `node tools/fetch-listings.mjs` (nabídky TGH a Stars z endpointu
 |---|---|---|---|
 | H1 ≤ 48 px | homepage 48 · výpis 40 · detail 32 ✓ | 40 / 34 / 28 ✓ | 32 / 28 / 24 ✓ |
 | obsah ≤ 1280 px | 1280 ✓ | – | – |
-| homepage: hero + začátek další sekce nad ohybem | sekce na 643 px ✓ | ✓ | – |
+| homepage: odhad ceny + lišta hledání nad ohybem | CTA 429 · lišta 558 px ✓ | CTA 413 · lišta 526 ✓ | CTA 477 ✓ |
+| homepage: 3 reference v řadě | 3 ✓ | 3 ✓ | 1 |
 | výpis: 4 karty v řadě | 4 ✓ (výška 416 px) | 2 | 1 |
 | výpis: 1. nemovitost do 1 posunutí od hlavičky výpisu | 367 px ✓ | ✓ | 319 px ✓ |
 | detail: H1 + klíčové parametry nad ohybem | spodní hrana štítků 831 px ✓ | | |

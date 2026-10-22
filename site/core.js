@@ -22,6 +22,8 @@ const versionSwitch = () => `<div class="review__ver" role="group" aria-label="V
 const nab = (n, acc) => `${num(n)} ${n === 1 ? (acc ? 'nabídku' : 'nabídka') : n >= 2 && n <= 4 ? 'nabídky' : 'nabídek'}`;
 
 // --- Ikonová sada: 24×24, tah 1.8. 20 px v textu, 24 px samostatně ---
+// BROKERS_NAME_FIX: CRM u makléřů ve více kancelářích přilepuje název kanceláře ke jménu („Tomáš Böhm STYLE“) → zobrazit jen jméno
+Object.values(window.BROKERS || {}).forEach(list => list.forEach(b => { b.n = b.n.replace(/\s+(STYLE|VISION|BRIDGE|CAPITAL|HORIZONT|HEROES|VICTORY|STARS)$/, ''); }));
 const ICONS = {
   search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
   pin: '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
