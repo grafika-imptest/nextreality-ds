@@ -9,7 +9,7 @@
   /* --- Brand NEXT (shodné pro všechny kanceláře – ověřeno na TGH, Stars, Dynamic 10/2026) --- */
   --brand-green: #85b929;        /* originál – jen dekor, ikony, plochy; s bílým textem NEsplňuje WCAG (2,3:1) */
   --brand-blue: #3187aa;         /* originál – jen dekor; s bílým textem 4,0:1 = pod AA */
-  --brand-navy: #103b5b;
+  --brand-navy: #13233d;   /* brandová modrá NEXT (RGB 19 35 61) – klient 10/2026 */
 
   /* --- Akcenty pro kancelář (přepisují se v [data-office]) --- */
   --accent: #4e7d12;             /* primární tlačítko, bílý text 4,9:1 ✓ AA */
